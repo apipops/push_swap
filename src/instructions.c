@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:57:45 by avast             #+#    #+#             */
-/*   Updated: 2023/02/08 19:17:53 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/09 12:12:28 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ int	get_inst_from_bb(t_stack *elem, t_infos *ib, t_stack **la, t_inst **inst)
 		return (-1);
 	if (!add_x_instru(inst, 1, PUSH, A))
 		return (-1);
+	merge_duplicate_instru(inst);
 	return (0);
 }
 

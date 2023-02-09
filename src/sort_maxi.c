@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:01:57 by avast             #+#    #+#             */
-/*   Updated: 2023/02/08 19:24:41 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/09 13:28:04 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,71 @@
 #include "../includes/protos.h"
 #include "../libft/libft.h"
 
-void	sort_maxi(t_stack **la, t_infos *ia, t_stack **lb)
+int	sort_maxi(t_stack **la, t_infos *ia, t_stack **lb, t_infos *ib)
 {
 /*  	t_median	median;
 
 	median = get_median(la, ia); 
 
 	sort_maxi_1(la, ia, lb, median); */
-	t_infos	ib;
+	t_inst *final_order;
 
-	stack_update_infos(lb, &ib);
-	sort_max_1b(la, ia, lb);
-	sort_max_2b(la, &ib, lb);
-	//sort_maxi_2(la, ia, lb);
-/* 	ft_printf("----BEFORE SORT THREE-------\n");
-	(ft_printf("==> LISTE A :\n"), stack_display(la), ft_printf("==> LISTE b :\n"), stack_display(lb)); */
-	//sort_three(la, ia);
-/* 	ft_printf("----AFTER SORT THREE-------\n");
-	(ft_printf("==> LISTE A :\n"), stack_display(la), ft_printf("==> LISTE b :\n"), stack_display(lb)); */
-	//sort_maxi_3(la, ia, lb);
+	if (push_to_lb(la, ia, lb, ib) == -1)
+		return (-1);
+ 	if (ia->size <= 3)
+		sort_three(la, ia); 
+ 	if (push_back_to_la(la, ib, lb) == -1)
+		return (-1); 
+	stack_update_infos(la, ia);
+ 	final_order = NULL;
+	if (!move_to_top(ia->min, *ia, &final_order, A))
+		return (-1);
+	instru_exec(&final_order, la, lb);
+	instru_display(&final_order);
+	instru_clear(&final_order);
+	stack_update_infos(la, ia);
+	return (0);
 }
 
-t_stack	**get_sort(t_stack **la, t_infos *ia, t_stack **sort)
+t_stack	**get_already_sort(t_stack **la, t_infos *ia, t_stack **sort)
 {
-	t_stack	*last;
+	t_stack	*sorted;
+	t_stack	*cur;
+	int		size;
 
-	last = stack_dup_elem(ia->min);
-	if (!last)
+	sorted = stack_dup_elem(ia->min);
+	if (!sorted)
 		return (NULL);
-	stack_add_back(sort, last);
-	while (stack_get_elem_sup(la, *ia, last->nb)
-		&& stack_get_elem_sup(la, *ia, last->nb)->pos > last->pos)
+	stack_add_back(sort, sorted);
+	cur = ia->min;
+	size = ia->size;
+	while (cur)
 	{
-		last = stack_dup_elem(stack_get_elem_sup(la, *ia, last->nb));
-		if (!last)
-			return (NULL);
-		stack_add_back(sort, last);
+		if (cur == stack_get_elem_sup(la, *ia, sorted->nb))
+		{
+			sorted = stack_dup_elem(stack_get_elem_sup(la, *ia, sorted->nb));
+			if (!sorted)
+				return (NULL);
+			stack_add_back(sort, sorted);
+		}
+/* 		if (!(cur->next))
+			cur = *la;
+		else */
+			cur = cur->next;
+		size--;
 	}
+/* 	ft_printf("==>ALREADY SORT:\n");
+	stack_display(sort); */
 	return (sort);
 }
 
-int	sort_max_1b(t_stack **la, t_infos *ia, t_stack **lb)
+int	push_to_lb(t_stack **la, t_infos *ia, t_stack **lb, t_infos *ib)
 {
 	t_stack	*sorted;
 	int		stop;
 
 	sorted = NULL;
-	if (!get_sort(la, ia, &sorted))
+	if (!get_already_sort(la, ia, &sorted))
 		return (-1);
 	if (stack_get_size(&sorted) > 3)
 		stop = stack_get_size(&sorted);
@@ -71,13 +89,19 @@ int	sort_max_1b(t_stack **la, t_infos *ia, t_stack **lb)
 		if (stack_check_exist(&sorted, (*la)->nb) == OK)
 			(stack_rotate(la), ft_printf(RA));
 		else
-			(stack_push(la, lb), ft_printf(PB), stack_update_infos(la, ia));
+			(stack_push(la, lb), ft_printf(PB));
+		stack_update_infos(la, ia);
 	}
 	stack_clear(&sorted);
+	stack_update_infos(lb, ib);
+/* 	ft_printf("==> LISTE A :\n");
+	stack_display(la);
+	ft_printf("==> LISTE B :\n");
+	stack_display(lb);   */
 	return (0);
 }
 
-int	sort_max_2b(t_stack **la, t_infos *ib, t_stack **lb)
+int	push_back_to_la(t_stack **la, t_infos *ib, t_stack **lb)
 {
 	t_stack		*cur;
 	t_inst		*inst;
@@ -100,77 +124,15 @@ int	sort_max_2b(t_stack **la, t_infos *ib, t_stack **lb)
 			instru_clear(&tmp);
 			cur = cur->next;
 		}
- 		(ft_printf("==> LISTE A :\n"), stack_display(la), ft_printf("==> LISTE b :\n"), stack_display(lb), instru_display(&inst));
-		ft_printf("==> INSTRUCTIONS :\n"); 
+/*   		(ft_printf("==> LISTE A :\n"), stack_display(la), ft_printf("==> LISTE b :\n"), stack_display(lb), instru_display(&inst));
+		ft_printf("==> INSTRUCTIONS :\n");  */
 		(instru_display(&inst), instru_exec(&inst, la, lb));
 		(instru_clear(&inst), instru_clear(&tmp), stack_update_infos(lb, ib));
 	}
 	return (0);
 }
 
-void	sort_maxi_1(t_stack **la, t_infos *ia, t_stack **lb, t_median med)
-{
-	t_stack		*cur;
-	t_inst		*inst;
-	t_inst		*tmp;
-	int			cost;
-
-	while (med.count)
-	{
-		cur = *la;
-		inst = NULL;
-		tmp = NULL;
-		cost = get_inst_from_a(get_first_bel_med(la, med.val), ia, lb, &inst);
-		while (cur)
-		{
-			if (cur->nb <= med.val && get_inst_from_a(cur, ia, lb, &tmp) < cost)
-			{
-				(instru_clear(&inst), instru_clear(&tmp));
-				cost = get_inst_from_a(cur, ia, lb, &inst);
-			}
-			instru_clear(&tmp);
-			cur = cur->next;
-		}
-/* 		(ft_printf("==> LISTE A :\n"), stack_display(la), ft_printf("==> LISTE b :\n"), stack_display(lb));
-		//instru_display(&inst);
-		ft_printf("==> INSTRUCTIONS :\n"); */
-		(instru_display(&inst), instru_exec(&inst, la, lb));
-		(instru_clear(&inst), instru_clear(&tmp), stack_update_infos(la, ia));
-		med.count--;
-	}
-}
-
-void	sort_maxi_2(t_stack **la, t_infos *ia, t_stack **lb)
-{
-	t_stack		*cur;
-	t_inst		*inst;
-	t_inst		*tmp;
-	int			cost;
-
-	while (ia->size > 3)
-	{
-		cur = *la;
-		inst = NULL;
-		tmp = NULL;
-		cost = get_inst_from_a(cur, ia, lb, &inst);
-		while (cur)
-		{
-			if (get_inst_from_a(cur, ia, lb, &tmp) < cost)
-			{
-				(instru_clear(&inst), instru_clear(&tmp));
-				cost = get_inst_from_a(cur, ia, lb, &inst);
-			}
-			instru_clear(&tmp);
-			cur = cur->next;
-		}
-/* 		(ft_printf("==> LISTE A :\n"), stack_display(la), ft_printf("==> LISTE b :\n"), stack_display(lb), instru_display(&inst));
-		ft_printf("==> INSTRUCTIONS :\n"); */
-		(instru_display(&inst), instru_exec(&inst, la, lb));
-		(instru_clear(&inst), instru_clear(&tmp), stack_update_infos(la, ia));
-	}
-}
-
- void	sort_maxi_3(t_stack **la, t_infos *ia, t_stack **lb)
+/* int	get_final_stack(t_stack **la, t_infos *ia)
 {
 	t_inst	*instru;
 
@@ -178,9 +140,9 @@ void	sort_maxi_2(t_stack **la, t_infos *ia, t_stack **lb)
 	{
 		instru = NULL;
 		get_inst_from_b(*lb, ia, la, &instru);
-/*   		(ft_printf("==>LISTE A :\n"), stack_display(la));
+ 		(ft_printf("==>LISTE A :\n"), stack_display(la));
 		(ft_printf("==>LISTE B :\n"), stack_display(lb));
-		ft_printf("==> INSTRUCTIONS :\n");  */
+		ft_printf("==> INSTRUCTIONS :\n");  
 		instru_display(&instru);
 		instru_exec(&instru, la, lb);
 		instru_clear(&instru);
@@ -191,35 +153,5 @@ void	sort_maxi_2(t_stack **la, t_infos *ia, t_stack **lb)
 	instru_display(&instru);
 	instru_clear(&instru);
 	stack_update_infos(la, ia);
-}
-
-/* void	sort_maxi_3(t_stack **la, t_infos *ib, t_stack **lb)
-{
-	t_stack		*cur;
-	t_inst		*inst;
-	t_inst		*tmp;
-	int			cost;
-
-	cur = *lb;
-	while (cur)
-	{
-		inst = NULL;
-		tmp = NULL;
-		cost = get_inst_from_b(cur, ib, lb, &inst);
-		while (cur)
-		{
-			if (get_inst_from_b(cur, ib, lb, &tmp) < cost)
-			{
-				(instru_clear(&inst), instru_clear(&tmp));
-				cost = get_inst_from_a(cur, ib, lb, &inst);
-			}
-			instru_clear(&tmp);
-			cur = cur->next;
-		}
-		(ft_printf("==> LISTE A :\n"), stack_display(la), ft_printf("==> LISTE b :\n"), stack_display(lb), instru_display(&inst));
-		ft_printf("==> INSTRUCTIONS :\n"); 
-		(instru_display(&inst), instru_exec(&inst, la, lb));
-		(instru_clear(&inst), instru_clear(&tmp), stack_update_infos(la, ib));
-	}
 }
  */
