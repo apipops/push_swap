@@ -6,7 +6,7 @@
 #    By: avast <avast@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 13:12:18 by avast             #+#    #+#              #
-#    Updated: 2023/02/10 15:51:38 by avast            ###   ########.fr        #
+#    Updated: 2023/02/10 18:38:47 by avast            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,32 @@ OBJ = $(SRC:.c=.o)
 INCLUDES = includes/params.h \
 	includes/protos.h
 
+BONUS = checker
+
+SRC_BONUS = bonus/src/stack_utils/stack_add_back.c \
+	bonus/src/stack_utils/stack_add_front.c \
+	bonus/src/stack_utils/stack_clear.c \
+	bonus/src/stack_utils/stack_create_new.c \
+	bonus/src/stack_utils/stack_check_order.c \
+	bonus/src/stack_utils/stack_display.c \
+	bonus/src/stack_utils/stack_get_size.c \
+	bonus/src/stack_utils/stack_push.c \
+	bonus/src/stack_utils/stack_reverse_rotate.c \
+	bonus/src/stack_utils/stack_rotate.c \
+	bonus/src/stack_utils/stack_rreverse_rotate.c \
+	bonus/src/stack_utils/stack_rrotate.c \
+	bonus/src/stack_utils/stack_sswap.c \
+	bonus/src/stack_utils/stack_swap.c \
+	bonus/src/stack_utils/stack_update_positions.c \
+	bonus/src/main.c \
+	bonus/src/parsing.c \
+	bonus/src/read_instructions.c \
+
+INCLUDES_BONUS = bonus/includes/params.h \
+	bonus/includes/protos.h
+
+OBJ_BONUS = $(SRC_BONUS:.c=.o)
+
 CC = gcc
 
 LIBFT = ./libft/libft.a
@@ -70,6 +96,8 @@ YELLOW = \033[1;93m
 
 all: $(NAME)
 
+bonus: $(BONUS)
+
 %.o: %.c
 	@$(CC) -Wall -Wextra -Werror -g -I./includes -I./libft -c $< -o $@
 
@@ -77,6 +105,9 @@ $(NAME): $(OBJ) $(LIBFT) $(INCLUDES)
 	@$(CC) $(OBJ) -L$(LIBFTDIR) -g -lft -o $(NAME)
 	@printf "$(YELLOW)------Compilation executed------\n\n"
 
+$(BONUS): $(OBJ_BONUS) $(LIBFT) $(INCLUDES_BONUS)
+	@$(CC) $(OBJ_BONUS) -L$(LIBFTDIR) -g -lft -o $(BONUS)
+	@printf "$(YELLOW)------Compilation executed------\n\n"
 
 $(LIBFT):
 	@make -C $(LIBFTDIR) 
@@ -85,12 +116,12 @@ $(LIBFT):
 do: all clean
 
 clean:
-	@/bin/rm -f $(OBJ) 
+	@/bin/rm -f $(OBJ) $(OBJ_BONUS)
 	@make clean -C $(LIBFTDIR)
 	@printf "$(PURPLE)------Object files deleted-------\n\n"
 
 fclean: clean
-	@/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME) $(BONUS)
 	@make fclean -C $(LIBFTDIR)
 	@printf "$(GREEN)----Executable files deleted-----\n\n"
 

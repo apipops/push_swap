@@ -6,7 +6,7 @@
 #    By: avast <avast@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/07 12:41:05 by avast             #+#    #+#              #
-#    Updated: 2022/12/12 10:57:03 by avast            ###   ########.fr        #
+#    Updated: 2023/02/10 17:59:22 by avast            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC = ft_isalpha.c \
 	ft_toupper.c \
 	ft_strchr.c \
 	ft_strrchr.c \
+	ft_strcmp.c \
 	ft_strncmp.c \
 	ft_memchr.c \
 	ft_memcmp.c \
