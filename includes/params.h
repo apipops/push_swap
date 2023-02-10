@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 13:12:26 by avast             #+#    #+#             */
-/*   Updated: 2023/02/08 15:04:22 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/10 15:59:07 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # define SS "ss\n"
 # define PA "pa\n"
 # define PB "pb\n"
+# define SARA "sa\nra\n"
+# define SARRA "sa\nrra\n"
 
 typedef struct s_stack
 {

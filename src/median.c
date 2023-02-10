@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:26:14 by avast             #+#    #+#             */
-/*   Updated: 2023/02/10 15:16:03 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/10 15:39:41 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,6 @@ t_stack	*get_first_bel_med(t_stack **lst, int median)
 	return (NULL);
 }
 
-t_stack	*get_first_abo_med(t_stack **lst, int median)
-{
-	t_stack	*cur;
-
-	cur = *lst;
-	while (cur)
-	{
-		if (cur->nb > median)
-			return (cur);
-		cur = cur->next;
-	}
-	return (NULL);
-}
 
 t_median	get_median(t_stack **lst, t_infos *infos)
 {

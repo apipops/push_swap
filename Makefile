@@ -6,7 +6,7 @@
 #    By: avast <avast@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 13:12:18 by avast             #+#    #+#              #
-#    Updated: 2023/02/10 11:43:57 by avast            ###   ########.fr        #
+#    Updated: 2023/02/10 15:51:38 by avast            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,14 +16,10 @@ STACK_UTILS = src/stack_utils/stack_add_back.c \
 	src/stack_utils/stack_add_front.c \
 	src/stack_utils/stack_clear.c \
 	src/stack_utils/stack_create_new.c \
-	src/stack_utils/stack_check_exist.c \
 	src/stack_utils/stack_check_order.c \
 	src/stack_utils/stack_display.c \
-	src/stack_utils/stack_dup_elem.c \
-	src/stack_utils/stack_get_infos.c \
 	src/stack_utils/stack_get_max.c \
 	src/stack_utils/stack_get_min.c \
-	src/stack_utils/stack_get_elem_inf.c \
 	src/stack_utils/stack_get_elem_sup.c \
 	src/stack_utils/stack_get_size.c \
 	src/stack_utils/stack_push.c \
@@ -39,7 +35,6 @@ STACK_UTILS = src/stack_utils/stack_add_back.c \
 INSTRUCTION_UTILS = src/instruction_utils/instru_add_back.c \
 	src/instruction_utils/instru_clear.c \
 	src/instruction_utils/instru_create_new.c \
-	src/instruction_utils/instru_delete_one.c\
 	src/instruction_utils/instru_display.c\
 	src/instruction_utils/instru_execute.c \
 	src/instruction_utils/instru_get_size.c \
