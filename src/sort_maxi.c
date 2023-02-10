@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:01:57 by avast             #+#    #+#             */
-/*   Updated: 2023/02/10 16:58:26 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/10 17:14:10 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,18 @@ int	push_to_a(t_stack **la, t_stack *elemb, t_infos *ib, t_inst **inst)
 
 	*inst = NULL;
 	tmp = NULL;
-	cost = get_instru(elemb, ib, la, inst);
+	cost = get_instructions(elemb, ib, la, inst);
 	if (cost == -1)
 		return (-1);
 	while (elemb)
 	{
-		new_cost = get_instru(elemb, ib, la, &tmp);
+		new_cost = get_instructions(elemb, ib, la, &tmp);
 		if (new_cost == -1)
 			return (instru_clear(inst), -1);
 		if (new_cost < cost)
 		{
 			(instru_clear(inst), instru_clear(&tmp));
-			cost = get_instru(elemb, ib, la, inst);
+			cost = get_instructions(elemb, ib, la, inst);
 			if (cost == -1)
 				return (-1);
 		}

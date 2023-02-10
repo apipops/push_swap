@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:57:45 by avast             #+#    #+#             */
-/*   Updated: 2023/02/10 15:48:33 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/10 17:13:51 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_inst	**merge_duplicate_instru(t_inst **instru)
 	return (instru);
 }
 
-int	get_instru(t_stack *elem, t_infos *ib, t_stack **la, t_inst **inst)
+int	get_instructions(t_stack *elem, t_infos *ib, t_stack **la, t_inst **inst)
 {
 	t_infos	ia;
 	t_stack	*elem_sup;

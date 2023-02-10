@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 13:12:26 by avast             #+#    #+#             */
-/*   Updated: 2023/02/10 15:59:07 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/10 17:15:47 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,5 @@ typedef struct s_instructs
 	char				stack;
 	struct s_instructs	*next;
 }	t_inst;
-
 
 #endif
