@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 13:16:40 by avast             #+#    #+#             */
-/*   Updated: 2023/02/09 12:18:40 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/10 12:41:41 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 /* STACK UTILS */
 void		stack_add_back(t_stack **lst, t_stack *new);
+void		stack_add_back_no_pos(t_stack **lst, t_stack *new);
 void		stack_add_front(t_stack **lst, t_stack *new);
 int			stack_check_exist(t_stack **lst, int nb);
 int			stack_check_order(t_stack **lst);
@@ -67,16 +68,19 @@ void		sort_maxi_1(t_stack **la, t_infos *ia, t_stack **lb, t_median med);
 void		sort_maxi_2(t_stack **la, t_infos *ia, t_stack **lb);
 void		sort_maxi_3(t_stack **la, t_infos *ia, t_stack **lb);
 
-t_stack		**get_already_sort(t_stack **la, t_infos *ia, t_stack **sort);
+t_stack		**get_already_sort(t_stack **la, t_infos ia, t_stack **sort);
 int			sort_max_1b(t_stack **la, t_infos *ib, t_stack **lb);
 int			sort_max_2b(t_stack **la, t_infos *ib, t_stack **lb);
 int			push_to_lb(t_stack **la, t_infos *ia, t_stack **lb, t_infos *ib);
 int			push_back_to_la(t_stack **la, t_infos *ib, t_stack **lb);
 int			sort_maxi(t_stack **la, t_infos *ia, t_stack **lb, t_infos *ib);
+int			push_back_to_la_1(t_stack **la, t_infos *ib, t_stack **lb, t_median med);
+int			push_back_to_la_2(t_stack **la, t_infos *ib, t_stack **lb);
 
 /* MEDIAN */
 t_stack		**create_ordered_stack(t_stack **ordered, t_stack **lst);
 t_stack		*get_first_bel_med(t_stack **lst, int median);
+t_stack		*get_first_abo_med(t_stack **lst, int median);
 t_median	get_median(t_stack **lst, t_infos *infos);
 void		put_elem_in_order(t_stack **lst, t_stack *new);
 

@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 15:44:08 by avast             #+#    #+#             */
-/*   Updated: 2023/02/09 13:25:26 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/10 15:26:56 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ int	main(int ac, char **av)
 		sort_five(&lsta, &infosa, &lstb);
 	else
 		sort_maxi(&lsta, &infosa, &lstb, &infosb);
-/*     ft_printf("==> LISTE A :\n");
+/*      ft_printf("==> LISTE A :\n");
 	stack_display(&lsta);
 	ft_printf("==> LISTE B :\n");
-	stack_display(&lstb);   */
+	stack_display(&lstb);    */
 	stack_clear(&lsta);
 	stack_clear(&lstb);
 	return (0);

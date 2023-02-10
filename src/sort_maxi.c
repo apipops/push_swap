@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:01:57 by avast             #+#    #+#             */
-/*   Updated: 2023/02/09 13:28:04 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/10 15:26:38 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,15 @@
 
 int	sort_maxi(t_stack **la, t_infos *ia, t_stack **lb, t_infos *ib)
 {
-/*  	t_median	median;
-
-	median = get_median(la, ia); 
-
-	sort_maxi_1(la, ia, lb, median); */
-	t_inst *final_order;
+	t_inst		*final_order; 
 
 	if (push_to_lb(la, ia, lb, ib) == -1)
 		return (-1);
- 	if (ia->size <= 3)
-		sort_three(la, ia); 
- 	if (push_back_to_la(la, ib, lb) == -1)
+	sort_three(la, ia);
+/* 	if (push_back_to_la_1(la, ib, lb, median) == -1)
+		return (-1); 
+	stack_update_infos(la, ia); */
+	if (push_back_to_la_2(la, ib, lb) == -1)
 		return (-1); 
 	stack_update_infos(la, ia);
  	final_order = NULL;
@@ -36,11 +33,11 @@ int	sort_maxi(t_stack **la, t_infos *ia, t_stack **lb, t_infos *ib)
 	instru_exec(&final_order, la, lb);
 	instru_display(&final_order);
 	instru_clear(&final_order);
-	stack_update_infos(la, ia);
+	stack_update_infos(la, ia);  
 	return (0);
 }
 
-t_stack	**get_already_sort(t_stack **la, t_infos *ia, t_stack **sort)
+/* t_stack	**get_already_sort(t_stack **la, t_infos *ia, t_stack **sort)
 {
 	t_stack	*sorted;
 	t_stack	*cur;
@@ -61,47 +58,94 @@ t_stack	**get_already_sort(t_stack **la, t_infos *ia, t_stack **sort)
 				return (NULL);
 			stack_add_back(sort, sorted);
 		}
-/* 		if (!(cur->next))
-			cur = *la;
-		else */
-			cur = cur->next;
+		cur = cur->next;
 		size--;
 	}
-/* 	ft_printf("==>ALREADY SORT:\n");
-	stack_display(sort); */
+ 	ft_printf("==>ALREADY SORT:\n");
+	stack_display(sort); 
 	return (sort);
-}
+} */
+
+/* t_stack	**get_already_sort(t_stack **la, t_infos ia, t_stack **sort)
+{
+	t_stack	*sorted;
+	t_stack *inf;
+
+	sorted = stack_dup_elem(ia.max);
+	if (!sorted)
+		return (NULL);
+	stack_add_back_no_pos(sort, sorted);
+	inf = stack_get_elem_inf(la, ia, sorted->nb);
+	while (inf && inf->pos < sorted->pos)
+	{
+		sorted = stack_dup_elem(inf);
+		inf = stack_get_elem_inf(la, ia, inf->nb);
+		if (!sorted)
+			return (NULL);
+		stack_add_back_no_pos(sort, sorted);
+	}
+ 	ft_printf("==>ALREADY SORT:\n");
+	stack_display(sort);  
+	return (sort);
+} */
 
 int	push_to_lb(t_stack **la, t_infos *ia, t_stack **lb, t_infos *ib)
 {
-	t_stack	*sorted;
-	int		stop;
+	t_median	med;
 
-	sorted = NULL;
-	if (!get_already_sort(la, ia, &sorted))
-		return (-1);
-	if (stack_get_size(&sorted) > 3)
-		stop = stack_get_size(&sorted);
-	else
-		stop = 3;
-	while (ia->size > stop)
+	med = get_median(la, ia);
+	while (med.count)
 	{
-		if (stack_check_exist(&sorted, (*la)->nb) == OK)
-			(stack_rotate(la), ft_printf(RA));
-		else
+		if ((*la)->nb <= med.val)
+		{
 			(stack_push(la, lb), ft_printf(PB));
+			med.count--;
+		}
+		else
+			(stack_rotate(la), ft_printf(RA));
+	}
+	while (ia->size > 3)
+	{
+		(stack_push(la, lb), ft_printf(PB));
 		stack_update_infos(la, ia);
 	}
-	stack_clear(&sorted);
 	stack_update_infos(lb, ib);
-/* 	ft_printf("==> LISTE A :\n");
-	stack_display(la);
-	ft_printf("==> LISTE B :\n");
-	stack_display(lb);   */
 	return (0);
 }
 
-int	push_back_to_la(t_stack **la, t_infos *ib, t_stack **lb)
+int	push_back_to_la_1(t_stack **la, t_infos *ib, t_stack **lb, t_median med)
+{
+	t_stack		*cur;
+	t_inst		*inst;
+	t_inst		*tmp;
+	int			cost;
+
+	while (med.count)
+	{
+		cur = *lb;
+		inst = NULL;
+		tmp = NULL;
+		cost = get_inst_from_bb(get_first_abo_med(lb, med.val), ib, la, &inst);
+		while (cur)
+		{
+			if (cur->nb > med.val && get_inst_from_bb(cur, ib, la, &tmp) < cost)
+			{
+				(instru_clear(&inst), instru_clear(&tmp));
+				cost = get_inst_from_bb(cur, ib, la, &inst);
+			}
+			instru_clear(&tmp);
+			cur = cur->next;
+		}
+/*    		(ft_printf("==> LISTE A :\n"), stack_display(la), ft_printf("==> LISTE b :\n"), stack_display(lb), instru_display(&inst));
+		ft_printf("==> INSTRUCTIONS :\n");   */
+		(instru_display(&inst), instru_exec(&inst, la, lb));
+		(instru_clear(&inst), instru_clear(&tmp), stack_update_infos(lb, ib));
+		med.count--;
+	}
+	return (0);
+}
+
+int	push_back_to_la_2(t_stack **la, t_infos *ib, t_stack **lb)
 {
 	t_stack		*cur;
 	t_inst		*inst;
@@ -124,8 +168,8 @@ int	push_back_to_la(t_stack **la, t_infos *ib, t_stack **lb)
 			instru_clear(&tmp);
 			cur = cur->next;
 		}
-/*   		(ft_printf("==> LISTE A :\n"), stack_display(la), ft_printf("==> LISTE b :\n"), stack_display(lb), instru_display(&inst));
-		ft_printf("==> INSTRUCTIONS :\n");  */
+/*    		(ft_printf("==> LISTE A :\n"), stack_display(la), ft_printf("==> LISTE b :\n"), stack_display(lb), instru_display(&inst));
+		ft_printf("==> INSTRUCTIONS :\n");   */
 		(instru_display(&inst), instru_exec(&inst, la, lb));
 		(instru_clear(&inst), instru_clear(&tmp), stack_update_infos(lb, ib));
 	}
