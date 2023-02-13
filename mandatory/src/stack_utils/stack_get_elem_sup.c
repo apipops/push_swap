@@ -6,13 +6,13 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 17:10:56 by avast             #+#    #+#             */
-/*   Updated: 2023/02/08 18:21:44 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/13 12:39:09 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/params.h"
 #include "../../includes/protos.h"
-#include "../../libft/libft.h"
+#include "../../../libft/libft.h"
 
 t_stack	*stack_get_elem_sup(t_stack **lst, t_infos infos, int nb)
 {

@@ -6,13 +6,13 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 13:15:35 by avast             #+#    #+#             */
-/*   Updated: 2023/02/13 11:31:57 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/13 12:39:09 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/params.h"
 #include "../includes/protos.h"
-#include "../../libft/libft.h"
+#include "../../../libft/libft.h"
 
 int	number_length(char *str)
 {

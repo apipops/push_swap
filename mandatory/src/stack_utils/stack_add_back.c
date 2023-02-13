@@ -6,13 +6,13 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 11:04:49 by avast             #+#    #+#             */
-/*   Updated: 2023/02/10 15:44:19 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/13 12:39:09 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/params.h"
 #include "../../includes/protos.h"
-#include "../../libft/libft.h"
+#include "../../../libft/libft.h"
 
 void	stack_add_back(t_stack **lst, t_stack *new)
 {

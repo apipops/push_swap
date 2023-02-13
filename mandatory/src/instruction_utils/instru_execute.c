@@ -6,13 +6,13 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 16:05:08 by avast             #+#    #+#             */
-/*   Updated: 2023/02/08 15:04:22 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/13 12:39:09 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/params.h"
 #include "../../includes/protos.h"
-#include "../../libft/libft.h"
+#include "../../../libft/libft.h"
 
 void	instru_exec_one(t_inst *instru, t_stack **main_lst, t_stack **scd_lst)
 {
