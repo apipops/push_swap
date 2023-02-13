@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 15:44:08 by avast             #+#    #+#             */
-/*   Updated: 2023/02/13 12:49:43 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/13 16:13:13 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int ac, char **av)
 	if (!lsta)
 		return (ft_putstr_fd(ERROR, 2), 0);
 	if (read_instru(&lsta, &lstb) == -1)
-		return (ft_putstr_fd(ERROR, 2), 0);
+		return (stack_clear(&lsta), ft_putstr_fd(ERROR, 2), 0);
 	if (stack_check_order(&lsta) == OK && stack_get_size(&lstb) == 0)
 		ft_printf("OK\n");
 	else

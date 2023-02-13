@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 11:54:35 by avast             #+#    #+#             */
-/*   Updated: 2023/02/10 17:59:13 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/13 16:12:41 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ char	*fill_buffer(int fd, char *buff);
 char	*extract_line(char *buff);
 char	*update_buffer(char *buff);
 char	*get_next_line(int fd);
+void	free_buff(char **buff);
 
 #endif

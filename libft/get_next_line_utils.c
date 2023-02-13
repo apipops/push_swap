@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:51:51 by avast             #+#    #+#             */
-/*   Updated: 2022/12/19 10:55:48 by avast            ###   ########.fr       */
+/*   Updated: 2023/01/25 11:35:57 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,10 @@ char	*ft_substr_gnl(char *s, unsigned int start, unsigned int len)
 		str[i] = s[start + i];
 	str[i] = '\0';
 	return (str);
+}
+
+void	free_buff(char **buff)
+{
+	free(*buff);
+	*buff = 0;
 }
