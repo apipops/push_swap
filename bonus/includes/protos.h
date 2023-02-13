@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 13:16:40 by avast             #+#    #+#             */
-/*   Updated: 2023/02/10 18:26:57 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/13 10:58:02 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,6 @@ void		stack_rrotate(t_stack	**lsta, t_stack **lstb);
 void		stack_rreverse_rotate(t_stack **lsta, t_stack **lstb);
 void		stack_update_positions(t_stack **lst);
 
-/* INSTRUCTION UTILS */
-void		instru_add_back(t_inst **instru, t_inst *new);
-void		instru_clear(t_inst **instru);
-t_inst		*instru_create_new(int type, char stack);
-void		instru_delete_one(t_inst **instru, int pos);
-void		instru_display_one(t_inst *instru);
-void		instru_display(t_inst **instru);
-void		instru_exec_one(t_inst *instru, t_stack **lst1, t_stack **lst2);
-void		instru_exec(t_inst **instru, t_stack **la, t_stack **lb);
-int			instru_get_size(t_inst **instru);
-
 /* PARSING */
 int			number_length(char *str);
 int			is_numeric_val(char *str);
@@ -49,8 +38,8 @@ int			has_duplicate(t_stack **lst, int nb);
 long int	ft_atol(const char *nptr);
 t_stack		**create_stack(t_stack **lsta, int ac, char **av);
 
-/* READ INSTRUCTIONS */
-int			read_instructions(t_stack **lsta, t_stack **lstb);
+/* SORTING */
+int			read_instru(t_stack **lsta, t_stack **lstb);
 int			apply_instru(char *instru, t_stack **la, t_stack **lb);
 
 #endif

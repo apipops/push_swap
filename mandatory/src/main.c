@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 15:44:08 by avast             #+#    #+#             */
-/*   Updated: 2023/02/10 17:06:59 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/13 11:16:54 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	main(int ac, char **av)
 	create_stack(&lsta, ac, av);
 	if (!lsta)
 		return (ft_putstr_fd(ERROR, 2), 0);
+	if (stack_check_order(&lsta) == OK)
+		return (stack_clear(&lsta), 0);
 	stack_update_infos(&lsta, &infosa);
 	stack_update_infos(&lstb, &infosb);
 	if (sort_stack(&lsta, &lstb, &infosa, &infosb) == -1)

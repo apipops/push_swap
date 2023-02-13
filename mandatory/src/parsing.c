@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 13:15:35 by avast             #+#    #+#             */
-/*   Updated: 2023/02/08 11:11:55 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/13 11:28:58 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,20 @@ int	is_numeric_val(char *str)
 
 	sign_flag = 0;
 	nb_flag = 0;
-	if (number_length(str) > 11)
+	if (number_length(str) > 11 || str[0] == '\0')
 		return (0);
 	while (*str)
 	{
-		if (sign_flag < 2 && ((*str >= '0' && *str <= '9')
-				|| *str == '+' || *str == '-'))
-		{
-			if (*str >= '0' && *str <= '9')
-				nb_flag++;
-			if ((*str == '+' || *str == '-') && nb_flag == 1)
-				return (0);
-			else if ((*str == '+' || *str == '-') && nb_flag == 0)
-				sign_flag++;
-			str++;
-		}
+		if (ft_isdigit(*str) && sign_flag < 2)
+			nb_flag++;
+		else if ((*str == '+' || *str == '-') && nb_flag == 0)
+			sign_flag++;
 		else
 			return (0);
+		str++;
 	}
+	if (!nb_flag)
+		return (0);
 	return (1);
 }
 

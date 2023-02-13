@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 13:12:26 by avast             #+#    #+#             */
-/*   Updated: 2023/02/10 17:15:47 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/13 10:28:45 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,6 @@ typedef struct s_stack
 	int				pos;
 	struct s_stack	*next;
 }	t_stack;
-
-typedef struct s_limit
-{
-	int	val;
-	int	position;
-}	t_limit;
 
 typedef struct s_median
 {

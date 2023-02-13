@@ -6,55 +6,58 @@
 #    By: avast <avast@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 13:12:18 by avast             #+#    #+#              #
-#    Updated: 2023/02/10 18:38:47 by avast            ###   ########.fr        #
+#    Updated: 2023/02/13 10:53:47 by avast            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-STACK_UTILS = src/stack_utils/stack_add_back.c \
-	src/stack_utils/stack_add_front.c \
-	src/stack_utils/stack_clear.c \
-	src/stack_utils/stack_create_new.c \
-	src/stack_utils/stack_check_order.c \
-	src/stack_utils/stack_display.c \
-	src/stack_utils/stack_get_max.c \
-	src/stack_utils/stack_get_min.c \
-	src/stack_utils/stack_get_elem_sup.c \
-	src/stack_utils/stack_get_size.c \
-	src/stack_utils/stack_push.c \
-	src/stack_utils/stack_reverse_rotate.c \
-	src/stack_utils/stack_rotate.c \
-	src/stack_utils/stack_rreverse_rotate.c \
-	src/stack_utils/stack_rrotate.c \
-	src/stack_utils/stack_sswap.c \
-	src/stack_utils/stack_swap.c \
-	src/stack_utils/stack_update_positions.c \
-	src/stack_utils/stack_update_infos.c \
+STACK_UTILS = mandatory/src/stack_utils/stack_add_back.c \
+	mandatory/src/stack_utils/stack_add_front.c \
+	mandatory/src/stack_utils/stack_clear.c \
+	mandatory/src/stack_utils/stack_create_new.c \
+	mandatory/src/stack_utils/stack_check_order.c \
+	mandatory/src/stack_utils/stack_display.c \
+	mandatory/src/stack_utils/stack_get_max.c \
+	mandatory/src/stack_utils/stack_get_min.c \
+	mandatory/src/stack_utils/stack_get_elem_sup.c \
+	mandatory/src/stack_utils/stack_get_size.c \
+	mandatory/src/stack_utils/stack_push.c \
+	mandatory/src/stack_utils/stack_reverse_rotate.c \
+	mandatory/src/stack_utils/stack_rotate.c \
+	mandatory/src/stack_utils/stack_rreverse_rotate.c \
+	mandatory/src/stack_utils/stack_rrotate.c \
+	mandatory/src/stack_utils/stack_sswap.c \
+	mandatory/src/stack_utils/stack_swap.c \
+	mandatory/src/stack_utils/stack_update_positions.c \
+	mandatory/src/stack_utils/stack_update_infos.c \
 
-INSTRUCTION_UTILS = src/instruction_utils/instru_add_back.c \
-	src/instruction_utils/instru_clear.c \
-	src/instruction_utils/instru_create_new.c \
-	src/instruction_utils/instru_display.c\
-	src/instruction_utils/instru_execute.c \
-	src/instruction_utils/instru_get_size.c \
+INSTRUCTION_UTILS = mandatory/src/instruction_utils/instru_add_back.c \
+	mandatory/src/instruction_utils/instru_clear.c \
+	mandatory/src/instruction_utils/instru_create_new.c \
+	mandatory/src/instruction_utils/instru_display.c\
+	mandatory/src/instruction_utils/instru_execute.c \
+	mandatory/src/instruction_utils/instru_get_size.c \
 
-SRC = src/parsing.c \
-	src/main.c \
-	src/median.c \
-	src/instructions.c \
-	src/sort_mini.c \
-	src/sort_maxi.c \
+SRC = mandatory/src/parsing.c \
+	mandatory/src/main.c \
+	mandatory/src/median.c \
+	mandatory/src/instructions.c \
+	mandatory/src/sort_mini.c \
+	mandatory/src/sort_maxi.c \
 	$(STACK_UTILS) $(INSTRUCTION_UTILS)
 
 OBJ = $(SRC:.c=.o)
 
-INCLUDES = includes/params.h \
-	includes/protos.h
+INCLUDES = mandatory/includes/params.h \
+	mandatory/includes/protos.h
 
 BONUS = checker
 
-SRC_BONUS = bonus/src/stack_utils/stack_add_back.c \
+SRC_BONUS = bonus/src/main.c \
+	bonus/src/parsing.c \
+	bonus/src/sorting.c \
+	bonus/src/stack_utils/stack_add_back.c \
 	bonus/src/stack_utils/stack_add_front.c \
 	bonus/src/stack_utils/stack_clear.c \
 	bonus/src/stack_utils/stack_create_new.c \
@@ -69,9 +72,6 @@ SRC_BONUS = bonus/src/stack_utils/stack_add_back.c \
 	bonus/src/stack_utils/stack_sswap.c \
 	bonus/src/stack_utils/stack_swap.c \
 	bonus/src/stack_utils/stack_update_positions.c \
-	bonus/src/main.c \
-	bonus/src/parsing.c \
-	bonus/src/read_instructions.c \
 
 INCLUDES_BONUS = bonus/includes/params.h \
 	bonus/includes/protos.h
@@ -79,6 +79,8 @@ INCLUDES_BONUS = bonus/includes/params.h \
 OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
 CC = gcc
+
+FLAGS = -Wall -Wextra -Werror -g
 
 LIBFT = ./libft/libft.a
 
@@ -99,10 +101,10 @@ all: $(NAME)
 bonus: $(BONUS)
 
 %.o: %.c
-	@$(CC) -Wall -Wextra -Werror -g -I./includes -I./libft -c $< -o $@
+	@$(CC) $(FLAGS) -I./includes -I./libft -c $< -o $@
 
 $(NAME): $(OBJ) $(LIBFT) $(INCLUDES)
-	@$(CC) $(OBJ) -L$(LIBFTDIR) -g -lft -o $(NAME)
+	@$(CC) $(OBJ) -L$(LIBFTDIR) $(FLAGS) -lft -o $(NAME)
 	@printf "$(YELLOW)------Compilation executed------\n\n"
 
 $(BONUS): $(OBJ_BONUS) $(LIBFT) $(INCLUDES_BONUS)
@@ -112,8 +114,6 @@ $(BONUS): $(OBJ_BONUS) $(LIBFT) $(INCLUDES_BONUS)
 $(LIBFT):
 	@make -C $(LIBFTDIR) 
 	@printf "$(BLUE)--------Libft.a created----------\n\n"
-
-do: all clean
 
 clean:
 	@/bin/rm -f $(OBJ) $(OBJ_BONUS)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_instructions.c                                :+:      :+:    :+:   */
+/*   sorting.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:35:55 by avast             #+#    #+#             */
-/*   Updated: 2023/02/10 18:28:46 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/13 10:26:03 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../includes/protos.h"
 #include "../../libft/libft.h"
 
-int	read_instructions(t_stack **lsta, t_stack **lstb)
+int	read_instru(t_stack **lsta, t_stack **lstb)
 {
 	char	*instru;
 

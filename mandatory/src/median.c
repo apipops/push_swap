@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 12:26:14 by avast             #+#    #+#             */
-/*   Updated: 2023/02/10 17:14:26 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/13 11:47:04 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,8 @@ t_median	get_median(t_stack **lst, t_infos *infos)
 	int			i;
 
 	ordered = NULL;
-	create_ordered_stack(&ordered, lst);
-	if (!ordered)
-		return ((t_median){0, 0});
+	if (!create_ordered_stack(&ordered, lst))
+		return ((t_median){0, -1});
 	cur = ordered;
 	i = 1;
 	median.count = infos->size / 2 + infos->size % 2;

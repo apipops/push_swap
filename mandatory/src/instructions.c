@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:57:45 by avast             #+#    #+#             */
-/*   Updated: 2023/02/10 17:13:51 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/13 11:42:18 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ int	get_instructions(t_stack *elem, t_infos *ib, t_stack **la, t_inst **inst)
 	stack_update_infos(la, &ia);
 	elem_sup = stack_get_elem_sup(la, ia, elem->nb);
 	if (!move_to_top(elem, *ib, inst, B))
-		return (-1);
+		return (instru_clear(inst), -1);
 	if (!move_to_top(elem_sup, ia, inst, A))
-		return (-1);
+		return (instru_clear(inst), -1);
 	if (!add_x_instru(inst, 1, PUSH, A))
-		return (-1);
+		return (instru_clear(inst), -1);
 	merge_duplicate_instru(inst);
 	return (instru_get_size(inst));
 }

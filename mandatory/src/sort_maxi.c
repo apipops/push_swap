@@ -6,7 +6,7 @@
 /*   By: avast <avast@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:01:57 by avast             #+#    #+#             */
-/*   Updated: 2023/02/10 17:14:10 by avast            ###   ########.fr       */
+/*   Updated: 2023/02/13 11:51:13 by avast            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	sort_maxi(t_stack **la, t_infos *ia, t_stack **lb, t_infos *ib)
 
 	instru = NULL;
 	final_instru = NULL;
-	push_to_b(la, ia, lb, ib);
+	if (push_to_b(la, ia, lb, ib) == -1)
+		return (-1);
 	sort_three(la, ia);
 	while (*lb)
 	{
@@ -39,11 +40,13 @@ int	sort_maxi(t_stack **la, t_infos *ia, t_stack **lb, t_infos *ib)
 	return (0);
 }
 
-void	push_to_b(t_stack **la, t_infos *ia, t_stack **lb, t_infos *ib)
+int	push_to_b(t_stack **la, t_infos *ia, t_stack **lb, t_infos *ib)
 {
 	t_median	med;
 
 	med = get_median(la, ia);
+	if (med.count == -1)
+		return (-1);
 	while (med.count)
 	{
 		if ((*la)->nb <= med.val)
@@ -59,7 +62,7 @@ void	push_to_b(t_stack **la, t_infos *ia, t_stack **lb, t_infos *ib)
 		(stack_push(la, lb), ft_printf(PB));
 		stack_update_infos(la, ia);
 	}
-	stack_update_infos(lb, ib);
+	return (stack_update_infos(lb, ib), 0);
 }
 
 int	push_to_a(t_stack **la, t_stack *elemb, t_infos *ib, t_inst **inst)
